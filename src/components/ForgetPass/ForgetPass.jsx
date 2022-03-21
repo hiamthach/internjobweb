@@ -1,11 +1,11 @@
 import React from 'react';
 
-const CtyInfo = () => {
+const ForgetPass = () => {
     return (
         <div>
-            CtyInfo
+            Forget
         </div>
     );
 }
 
-export default CtyInfo;
+export default ForgetPass;

@@ -1,4 +1,5 @@
 import Routers from "./Routers";
+import './styles/index.scss'
 
 function App() {
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CtyPostList = () => {
+const CtyPostListPage = () => {
     return (
         <div>
            Cty post list 
@@ -8,4 +8,4 @@ const CtyPostList = () => {
     );
 }
 
-export default CtyPostList;
+export default CtyPostListPage;

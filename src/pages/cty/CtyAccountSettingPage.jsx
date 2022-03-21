@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CtyAccountSetting = () => {
+const CtyAccountSettingPage = () => {
     return (
         <div>
             cty account setting
@@ -8,4 +8,4 @@ const CtyAccountSetting = () => {
     );
 }
 
-export default CtyAccountSetting;
+export default CtyAccountSettingPage;

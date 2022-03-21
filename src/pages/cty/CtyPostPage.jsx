@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CtyPost = () => {
+const CtyPostPage = () => {
     return (
         <div>
             Cty post
@@ -8,4 +8,4 @@ const CtyPost = () => {
     );
 }
 
-export default CtyPost;
+export default CtyPostPage;

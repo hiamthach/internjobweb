@@ -1,0 +1,17 @@
+@use '../../styles/' as *;
+
+
+.logo {
+    display: flex;
+    align-items: flex-end;
+    h1 {
+        font-family: $logo-font;
+        font-size: 23px;
+        font-weight: 900;
+    }
+    h4 {
+        font-size: 12px;
+        font-weight: 500;
+        margin-bottom: 6px;
+    }
+}

@@ -3,9 +3,10 @@ import { Route, Routes} from 'react-router-dom'
 
 
 import HomePage from './pages/HomePage';
-import Login from './pages/Login'
+import LoginPage from './pages/LoginPage'
+import ForgetPassPage from './pages/ForgetPassPage';
 
-import { CtyHome, CtySignup, CtyInfo, CtyPostList, CtyAccount, CtyAccountSetting, CtyPost } from './pages/cty/index'
+import { CtyHomePage, CtySignupPage, CtyInfoPage, CtyPostListPage, CtyAccountPage, CtyAccountSettingPage, CtyPostPage } from './pages/cty/index'
 
 const Routers = () => {
     return (
@@ -16,42 +17,45 @@ const Routers = () => {
             />
             <Route 
                 path='/login'
-                element={<Login/>}
+                element={<LoginPage/>}
+            />
+            <Route
+                path='/forgetpass'
+                element={<ForgetPassPage/>}
             />
 
             {/* Cty */}
             <Route 
                 path='/cty'
-                element={<CtyHome/>}
+                element={<CtyHomePage/>}
             />
             <Route 
                 path='/cty/signup'
-                element={<CtySignup/>}
+                element={<CtySignupPage/>}
             />
             <Route 
-                path='/cty/info'
-                element={<CtyInfo/>}
+                path='/cty/info/:id'
+                element={<CtyInfoPage/>}
             />
             <Route 
                 path='/cty/post-list'
-                element={<CtyPostList/>}
+                element={<CtyPostListPage/>}
             />
             <Route 
                 path='/cty/account'
-                element={<CtyAccount/>}
+                element={<CtyAccountPage/>}
             />
             <Route 
                 path='/cty/account/setting'
-                element={<CtyAccountSetting/>}
+                element={<CtyAccountSettingPage/>}
             />
             <Route 
                 path='/cty/post'
-                element={<CtyPost/>}
+                element={<CtyPostPage/>}
             />
             {/* Cty */}
-
             {/* Uni */}
-            
+
             {/* Uni */}
         </Routes>
     );

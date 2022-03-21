@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CtySignup = () => {
+const CtySignupPage = () => {
     return (
         <div>
             CtySignup
@@ -8,4 +8,4 @@ const CtySignup = () => {
     );
 }
 
-export default CtySignup;
+export default CtySignupPage;

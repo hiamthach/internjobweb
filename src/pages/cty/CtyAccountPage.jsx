@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CtyAccount = () => {
+const CtyAccountPage = () => {
     return (
         <div>
             cty accout
@@ -8,4 +8,4 @@ const CtyAccount = () => {
     );
 }
 
-export default CtyAccount;
+export default CtyAccountPage;

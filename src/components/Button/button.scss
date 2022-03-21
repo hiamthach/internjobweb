@@ -1,0 +1,20 @@
+@use '../../styles/' as *;
+
+.btn {
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 12px 32px;
+    width: fit-content;
+    cursor: pointer;
+    background-color: $primary-color;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    transition: opacity .3s ease;
+    display: flex;
+    align-items: center;
+    &:hover {
+        opacity: 0.8;
+    }
+}
