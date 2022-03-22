@@ -1,0 +1,65 @@
+@use '../../styles/' as *;
+
+.home {
+    &-header {
+        width: 1170px;
+        margin: auto;
+        padding: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        &-logo {
+            font-family: $header-font;
+            font-weight: 900;
+            font-size: 25px;
+        }
+        &-nav {
+            display: flex;
+            gap: 32px;
+            &__item {
+                position: relative;
+                padding: 16px 0;
+                height: 100%;
+                a {
+                    font-weight: 600;
+                    font-size: 17px;
+                    color: $text-color;
+                }
+                &::before {
+                    content: "";
+                    width: 0;
+                    height: 2px;
+                    position: absolute;
+                    left: 0;
+                    bottom: 0;
+                    background-color: $primary-color;
+                    transition: all .4s ease;
+                }
+                &:hover {
+                    a {
+                        color: $primary-color;
+                    }
+                    &::before {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    
+        &-btns {
+            display: flex;
+            &__login {
+                background-color: transparent;
+                font-size: 13px;
+                font-weight: 800;
+                text-transform: uppercase;
+                padding: 12px 32px;
+                cursor: pointer;
+                border: none;
+                &:hover {
+                    color: $primary-color;
+                }
+            }
+        }
+    }
+}

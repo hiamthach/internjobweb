@@ -1,13 +1,11 @@
 import React from 'react';
 
-import Logo from '../components/Logo/Logo';
-import Button from '../components/Button/Button';
+import Home from '../components/Home/Home'
 
 const HomePage = () => {
     return (
         <div className='container'>
-            <Logo/>
-            <Button text='Đăng nhập'/>
+            <Home/>
         </div>
     );
 }

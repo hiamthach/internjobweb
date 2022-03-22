@@ -1,5 +1,6 @@
 import React from 'react';
 import './logo.scss'
+import { Link } from 'react-router-dom';
 
 const Logo = (props) => {
     let type = ''
@@ -10,10 +11,10 @@ const Logo = (props) => {
     }
 
     return (
-        <div className="logo">
+        <Link to='/' className="logo">
             <h1>ITInternshipJobs</h1>
             <h4>{type}</h4>
-        </div>
+        </Link>
     );
 }
 

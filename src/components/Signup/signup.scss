@@ -1,0 +1,20 @@
+@use '../../styles/' as *;
+
+.signup {
+    width: 100%;
+    text-align: center;
+
+    &-confirm {
+        display: flex;
+        gap: 3px;
+        align-items: center;
+        span {
+            font-size: 13px;
+        }
+    }
+
+    &-btns {
+        display: flex;
+        justify-content: center;
+    }
+}
