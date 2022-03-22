@@ -1,0 +1,62 @@
+@use './variables';
+
+.form {
+    margin: 24px auto;
+    display: flex;
+    min-width: 480px;
+    max-width: fit-content;
+    padding: 0 24px;
+    flex-direction: column;
+    gap: 16px;
+    background-color: #fff;
+    border: 3px solid $primary-color;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 36px;
+
+    &-title {
+        font-size: 22px;
+        text-transform: uppercase;
+        font-family: $header-font;
+        letter-spacing: 2px;
+    }
+    .input {
+        &-wrapper {
+            margin: 24px 0;
+            display: flex;
+            width: 100%;
+            padding: 0 24px;
+            flex-direction: column;
+            gap: 16px;
+            text-align: left;
+        }
+        &-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            label {
+                font-size: 15px;
+                font-weight: 700;
+                span {
+                    color: $primary-color;
+                }
+            }
+            &__input {
+                padding: 8px 16px;
+                border: 1.4px solid $primary-color;
+                border-radius: 4px;
+            }
+
+            &.error {
+                .input-group__input {
+                    padding: 8px 16px;
+                    border: 1.4px solid $red-color;
+                    border-radius: 4px;
+                } 
+            }
+        }
+    }
+}

@@ -1,0 +1,29 @@
+@use '../../styles/' as *;
+
+.forget-pass {
+    &__title {
+        margin-top: 24px;
+    }
+    &__section {
+        width: 100%;
+        text-align: center;
+        &.dis-none {
+            display: none;
+        }
+    }
+    &__des {
+        font-size: 13px;
+        font-weight: 500;
+        margin: 12px 0;
+
+        a {
+            margin-left: 3px;
+            text-decoration: underline;
+        }
+    }
+    &__btns {
+        display: flex;
+        justify-content: center;
+
+    }
+}

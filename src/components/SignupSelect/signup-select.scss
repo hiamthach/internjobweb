@@ -1,0 +1,9 @@
+@use '../../styles/' as *;
+
+.signup-select {
+    &-btns {
+        display: flex;
+        gap: 16px;
+        margin-top: 12px;
+    }
+}

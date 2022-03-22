@@ -5,6 +5,7 @@ import { Route, Routes} from 'react-router-dom'
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage'
 import ForgetPassPage from './pages/ForgetPassPage';
+import SignupPage from './pages/SignupPage';
 
 import { CtyHomePage, CtySignupPage, CtyInfoPage, CtyPostListPage, CtyAccountPage, CtyAccountSettingPage, CtyPostPage } from './pages/cty/index'
 
@@ -22,6 +23,10 @@ const Routers = () => {
             <Route
                 path='/forgetpass'
                 element={<ForgetPassPage/>}
+            />
+            <Route
+                path='/signup'
+                element={<SignupPage/>}
             />
 
             {/* Cty */}

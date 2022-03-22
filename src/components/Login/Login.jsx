@@ -5,12 +5,11 @@ import './login.scss'
 
 import Logo from '../Logo/Logo'
 import Button from '../Button/Button'
-import InputGroup from '../InputGroup/InputGroup';
 import { Google } from 'react-bootstrap-icons';
 
 const Login = () => {
     return (
-        <div className='login'>
+        <div className='form login'>
             <Logo/>
             <div className="login-btn">
                 <Button>
@@ -23,29 +22,17 @@ const Login = () => {
                 <span>Hoặc</span>
                 <div className="line"></div>
             </div>
-            <h1 className="login-title">Đăng Nhập</h1>
-            <div className="login-form">
-                {/* <div className="login-form__item">
-                    <label htmlFor=".login-form__email">Email</label>
-                    <input type="email" className='login-form__item--input login-form__email' id='' placeholder='itinternjob@gmail.com'/>
+            <h1 className="form-title login-title">Đăng Nhập</h1>
+            <div className="input-wrapper login-form">
+                <div className='input-group'>
+                    <label htmlFor="">Email</label>
+                    <input type='email' className='input-group__input' id='' placeholder='Email'/>
                 </div>
-
-                <div className="login-form__item">
-                    <label htmlFor=".login-form__pass">Password</label>
-                    <input type="password" className='login-form__item--input login-form__password' placeholder='8-16 ký tự và không có ký tự đặc biệt'/>
-                </div> */}
-                <InputGroup
-                    type='email'
-                    text='Email'
-                    place=''
-                />
-                <InputGroup
-                    type='password'
-                    text='Mật khẩu'
-                    place=''
-                    // forced
-                    // error
-                />
+                <div className='input-group'>
+                    <label htmlFor="">Mật khẩu</label>
+                    <input type='email' className='input-group__input' id='' placeholder='Mật khẩu'/>
+                </div>
+                
             </div>
             <div className="login-remember">
                 <input type="checkbox" id='login-remember__check' />
