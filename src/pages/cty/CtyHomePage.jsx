@@ -1,11 +1,13 @@
 import React from 'react';
 
-const CtyHome = () => {
+import CityHome from '../../components/Cty/CtyHome/CtyHome'
+
+const CtyHomePage = () => {
     return (
-        <div>
-            CtyHome
+        <div className='container'>
+            <CityHome/>
         </div>
     );
 }
 
-export default CtyHome;
+export default CtyHomePage;

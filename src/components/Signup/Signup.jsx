@@ -145,8 +145,8 @@ const Signup = (props) => {
                 </div>
 
                 <div className="signup-confirm">
-                    <input type="checkbox" name="" id="signup-confirm__"/>
-                    <label htmlFor=''>Tôi đồng ý với điều khoản dịch vụ và chính sách bảo mật</label>
+                    <input type="checkbox" id='signup-confirm__input'/>
+                    <label htmlFor='signup-confirm__input'>Tôi đồng ý với điều khoản dịch vụ và chính sách bảo mật</label>
                 </div>
             </div>
 

@@ -1,0 +1,117 @@
+@use '../../styles/' as *;
+
+.header {
+    width: 1170px;
+    margin: auto;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &-logo {
+        font-family: $header-font;
+        font-weight: 900;
+        font-size: 25px;
+    }
+    &-nav {
+        display: flex;
+        gap: 32px;
+        &__item {
+            position: relative;
+            padding: 16px 0;
+            height: 100%;
+
+            &--link {
+                display: flex;
+                align-items: center;
+                font-weight: 600;
+                font-size: 17px;
+                color: $text-color;
+            }
+
+            &--icon {
+                font-size: 16px;
+                margin-right: 8px;
+                color: $primary-color;
+            }
+
+            &::before {
+                content: "";
+                width: 0;
+                height: 2px;
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                background-color: $primary-color;
+                transition: all .4s ease;
+            }
+            
+
+            &.active {
+                a {
+                    color: $primary-color;
+                }
+                &::before {
+                    width: 100%;
+                }
+            }
+
+            &-dropdown {
+                background-color: #ffffff;
+                border-color: $primary-color;
+                border-radius: 0px 0px 10px 10px;
+                border-style: solid;
+                border-width: 3px 1px 1px;
+                line-height: 24px;
+                margin: 2px 0px 0px;
+                padding: 12px 0px;
+                text-align: left;
+                position: absolute;
+                top: calc(100% - 4px);
+                left: 0;
+                width: max-content;
+                display: flex;
+                flex-direction: column;
+                display: none;
+                &__item {
+                    color: $text-color;
+                    font-size:14px;
+                    font-weight:700;
+                    line-height:19.5px;
+                    padding:10px 30px;
+                    text-align:left;
+                    &:hover {
+                        color: $primary-color;
+                    }
+                }
+            }
+
+            &:hover {
+                .header-nav__item--link {
+                    color: $primary-color;
+                }
+                &::before {
+                    width: 100%;
+                }
+                .header-nav__item-dropdown {
+                    display: flex;
+                }
+            }
+        }
+    }
+
+    &-btns {
+        display: flex;
+        &__login {
+            background-color: transparent;
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 12px 32px;
+            cursor: pointer;
+            border: none;
+            &:hover {
+                color: $primary-color;
+            }
+        }
+    }
+}

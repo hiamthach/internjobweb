@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage'
 import ForgetPassPage from './pages/ForgetPassPage';
 import SignupPage from './pages/SignupPage';
+import JobInfoPage from './pages/JobInfoPage'
 
 import { CtyHomePage, CtySignupPage, CtyInfoPage, CtyPostListPage, CtyAccountPage, CtyAccountSettingPage, CtyPostPage } from './pages/cty/index'
 
@@ -28,6 +29,11 @@ const Routers = () => {
                 path='/signup'
                 element={<SignupPage/>}
             />
+            <Route
+                path='/jobinfo'
+                element={<JobInfoPage/>}
+            />
+            
 
             {/* Cty */}
             <Route 

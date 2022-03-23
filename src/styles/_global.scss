@@ -31,8 +31,55 @@ body {
     padding: 12px;
 }
 
-#main {
+.main {
     display: flex;
     width: 100%;
     margin: 54px 0;
+}
+
+.row {
+    display: flex;
+}
+
+.col-4 {
+    width: 33.33333%;
+    position: relative;
+}
+
+.col-8 {
+    width: 66.66667%;
+}
+
+.col-12 {
+    width: 100%;
+}
+
+input[type=checkbox] + label {
+    display: block;
+}
+
+input[type=checkbox] {
+    display: none;
+}
+
+input[type=checkbox] + label::before {
+    content: '\2714';
+    border: .1rem solid $primary-color;
+    border-radius: .2rem;
+    font-size: 10px;
+    background-color: #fff;
+    color: #fff;
+    padding: 0 2.5px;
+    margin-right: 8px;
+}
+
+input[type=checkbox]:checked + label::before {
+    content: '\2714';
+    border: .1rem solid $primary-color;
+    border-radius: .2rem;
+    font-size: 10px;
+    height: 24px;
+    background-color: $primary-color;
+    color: #fff;
+    padding: 0 2.5px;
 }

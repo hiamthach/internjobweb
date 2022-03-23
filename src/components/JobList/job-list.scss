@@ -1,0 +1,11 @@
+@use '../../styles/' as *;
+
+.job-list {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 16px;
+    &__result {
+        font-size: 18px;
+    }
+}

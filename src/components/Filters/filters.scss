@@ -1,0 +1,33 @@
+@use '../../styles/' as *;
+
+.filters {
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: sticky;
+    top: 0;
+    left: 0;
+    &-block {
+        h1 {
+            font-size: 18px;
+            margin: 16px 0;
+        }
+        &__check {
+            margin: 8px 0;
+            input[type=checkbox] + label::before {
+                font-size: 12px;
+                padding: 0 3px;
+            }
+
+            input[type=checkbox]:checked + label::before {
+                font-size: 12px;
+                padding: 0 3px;
+            }
+            label {
+                font-size: 15px;
+                margin-top: 3px;
+            }
+        }
+    }
+}

@@ -8,8 +8,9 @@
         display: flex;
         gap: 3px;
         align-items: center;
-        span {
+        label {
             font-size: 13px;
+            line-height: auto;
         }
     }
 
