@@ -9,7 +9,7 @@
     flex-direction: column;
     gap: 16px;
     background-color: #fff;
-    border: 3px solid $primary-color;
+    // border: 3px solid $primary-color;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -96,6 +96,17 @@
                     background-color: $primary-color;
                 }
             }
+
+            &__check {
+                &--wrap {
+                    label {
+                        font-size: 15px;
+                        font-weight: 400;
+                        margin: 4px 0;
+                    }
+                }
+            }
+
             &.error {
                 .input-group__input {
                     padding: 8px 16px;

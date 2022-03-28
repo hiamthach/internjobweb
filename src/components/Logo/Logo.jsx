@@ -10,7 +10,7 @@ const Logo = (props) => {
         type = 'Trường Đại học / Cao đẳng'
     }
 
-    const link = type ? `/${props.type}` : ''
+    const link = type ? `/${props.type}` : '/'
 
     return (
         <Link to={link} className="logo">

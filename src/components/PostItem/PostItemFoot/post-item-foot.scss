@@ -1,0 +1,36 @@
+@use '../../../styles/' as *;
+
+.post-item-foot {
+    display: flex;
+    width: 100%;
+    &__wrap {
+        border-top: 1px solid #dedede;
+        flex: 1;
+        display: flex;
+        font-weight:300; 
+        justify-content:center;
+        line-height:16px;
+        padding: 16px 0px;
+        text-align: center;
+        align-items: center;
+
+        &:nth-child(2) {
+            border-left: 1px solid #dedede;
+            border-right: 1px solid #dedede;
+        }
+
+        &--icon {
+            margin-right: 8px;
+            font-size: 16px;
+        }
+
+        p {
+            font-size: 13px;
+        }
+
+        &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+}

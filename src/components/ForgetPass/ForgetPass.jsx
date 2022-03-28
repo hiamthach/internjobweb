@@ -25,7 +25,7 @@ const ForgetPass = () => {
                 </div>
             </div>
 
-            <div className="forget-pass__section dis-none">
+            <div className="forget-pass__section">
                 <h1 className="form-title forget-pass__title">Nhập mã xác minh</h1>
                 <div className="input-wrapper">
                     <div className='input-group'>
@@ -50,7 +50,7 @@ const ForgetPass = () => {
                 </div>
             </div>
 
-            <div className="forget-pass__section dis-none">
+            <div className="forget-pass__section">
                 <h1 className="form-title forget-pass__title">Cập nhật Mật khẩu</h1>
                 <div className="input-wrapper">
                     <div className='input-group'>

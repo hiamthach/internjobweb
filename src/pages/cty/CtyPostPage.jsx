@@ -1,9 +1,17 @@
 import React from 'react';
 
+import CtyPost from '../../components/Cty/CtyPost/CtyPost';
+import Header from '../../components/Header/Header';
+
 const CtyPostPage = () => {
     return (
-        <div>
-            Cty post
+        <div className='container'>
+            <Header
+                type='cty'
+                where='post'
+            />
+
+           <CtyPost/> 
         </div>
     );
 }

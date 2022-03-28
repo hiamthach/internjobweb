@@ -77,9 +77,6 @@
         display: flex;
         align-items: center;
         width: 100%;
-        padding: 0 24px;
-        margin-top: -16px;
-        margin-bottom: 36px;
         label {
             color: $text-color;
             font-size: 13px;
@@ -88,7 +85,18 @@
     &-forget {
         color: $primary-color;
         font-size: 13px;
-        margin-top: 12px;
         text-decoration: underline;
     }
+    &-submit {
+        width: 100%;
+        text-align: center;
+        margin-top: 24px;
+        button {
+            margin: 0 auto;
+        }
+    }
+}
+
+#login-submit {
+    display: none;
 }

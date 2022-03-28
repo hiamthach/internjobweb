@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import './header.scss'
 
@@ -6,7 +6,14 @@ import {PlusSquare} from 'react-bootstrap-icons'
 
 import Logo from '../Logo/Logo';
 
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../redux/selectors';
+
 const Header = (props) => {
+
+    const user = useSelector(selectUser)
+
+    console.log(user)
 
     return (
         <div>
@@ -19,7 +26,7 @@ const Header = (props) => {
                     <Link to={`/${props.type}/post-list`} className='header-nav__item--link'>Danh sách bài đăng</Link>
                 </div>
                 <div className={`header-nav__item ${props.where === 'account' ? 'active' : ''}`}>
-                    <Link to={`/${props.type}/account`} className='header-nav__item--link'>Tài khoản</Link>
+                    <Link to={`/${props.type}/account`} className='header-nav__item--link'>{user?.name}</Link>
                     <div className="header-nav__item-dropdown">
                         <Link to='/cty/account/setting' className="header-nav__item-dropdown__item">Cài đặt tài khoản</Link>
                         <Link to='/cty/account/setting' className="header-nav__item-dropdown__item">Danh sách đã lưu</Link>

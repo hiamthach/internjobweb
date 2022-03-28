@@ -17,5 +17,10 @@
     &-btns {
         display: flex;
         justify-content: center;
+        margin-top: 12px;
     }
+}
+
+#signup-submit {
+    display: none;
 }
