@@ -2,71 +2,93 @@ import React, {useState} from 'react';
 
 import './cty-post.scss'
 
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { useForm } from 'react-hook-form';
+import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../../redux/selectors'
+
+import { addDoc, collection } from 'firebase/firestore'
+import { db } from '../../../firebase-config'
+
+import { useNavigate } from 'react-router-dom';
 
 import Button from '../../Button/Button'
 
 const CtyPost = () => {
 
+    const navigate = useNavigate()
+
     const [city, setCity] = useState('Thành phố')
-    const [selectCityOpen, setSelectCityOpen] = useState(false)
 
-    const handleCityOptionClick = (e) => {
-        setCity(e.target.innerText)
-    }
+    const { register, handleSubmit, formState: { errors } } = useForm()
 
-    const handleSelectCityOpen = () => {
-        setSelectCityOpen(!selectCityOpen)
+    const user = useSelector(selectUser)
+
+    const postsRef = collection(db, "cty-posts")
+
+    const onSubmit = (data) => {
+        data.candidates = []
+        data.author = user
+
+        addDoc(postsRef, data)
+
+        alert('Đăng bài thành công!')
+        navigate('/cty/post-list')
     }
 
     return (
         <div className='cty-post'>
-            <form className="form cty-post__form">
+            <form className="form cty-post__form" onSubmit={handleSubmit(onSubmit)}>
                 <h1 className="form-title">Đăng tuyển thực tập</h1>
                 <div className="input-wrapper">
                     <div className='input-group'>
                         <label htmlFor="">Hồ sơ mẫu sẽ được gửi đến Email <span className='input-required'>*</span></label>
-                        <input type='email' className='input-group__input' required id='' placeholder=''/>
+                        <input type='email' className='input-group__input' {...register('email', {required : true})} id='' placeholder=''/>
                     </div>
 
                     <div className='input-group'>
-                        <label htmlFor="">Vị trí <span className='input-required'>*</span></label>
-                        <input type='text' className='input-group__input' required id='' placeholder=''/>
+                        <label htmlFor="">Vị trí cần tuyển <span className='input-required'>*</span></label>
+                        <input type='text' className='input-group__input' {...register('position', {required : true})} id='' placeholder=''/>
                     </div>
                     <div className='input-group'>
                         <label htmlFor="">Nơi làm việc <span className='input-required'>*</span></label>
-                        <input type='text' className='input-group__input' required id='' placeholder=''/>
+                        <input type='text' className='input-group__input' {...register('address', {required : true})} id='' placeholder=''/>
                     </div>
 
-                    <div className='input-group'>
-                        <label htmlFor="">Thành phố <span className='input-required'>*</span></label>
-                        <div className="input-group__select">
-                            <div className="input-group__select--default" onClick={handleSelectCityOpen}>
-                                <span>{city}</span>
-                                <KeyboardArrowDownIcon/>
-                            </div>
-
-                            <div className={`input-group__select--list ${selectCityOpen ? 'select-open' : ''}`} onMouseLeave={handleSelectCityOpen}>
-                                <div className="input-group__select--option" onClick={handleCityOptionClick}>Hồ Chí Minh</div>
-                                <div className="input-group__select--option" onClick={handleCityOptionClick}>Hà Nội</div>
-                                <div className="input-group__select--option" onClick={handleCityOptionClick}>Đà Nẵng</div>
-                            </div>
-                        </div>
-                    </div>
+                    <div className="input-group">
+                    <FormControl>
+                        <InputLabel id="sign-up__city">Thành phố</InputLabel>
+                        <Select
+                            labelId="sign-up__city"
+                            id="sign-up__select-city"
+                            value={city}
+                            label="Thành phố"
+                            onChange={(e) => {
+                                setCity(e.target.value)
+                            }}
+                            // {...register('city', {required: true})}
+                        >
+                            <MenuItem value='Hồ Chí Minh'>Hồ Chí Minh</MenuItem>
+                            <MenuItem value='Hà Nội'>Hà Nội</MenuItem>
+                            <MenuItem value='Đà Nẵng'>Đà Nẵng</MenuItem>
+                        </Select>
+                    </FormControl>
+                </div>
 
                     <div className='input-group'>
                         <label htmlFor="">Loại việc <span className='input-required'>*</span></label>
                         <div className="input-group__check">
                             <div className="input-group__check--wrap">
-                                <input type="checkbox" value='Full time' id='cty-post__fulltime'/>
+                                <input type="checkbox" {...register('type')} value='Full time' id='cty-post__fulltime'/>
                                 <label htmlFor="cty-post__fulltime">Full time</label>
                             </div>
                             <div className="input-group__check--wrap">
-                                <input type="checkbox" value='Part time' id='cty-post__parttime'/>
+                                <input type="checkbox" {...register('type')} value='Part time' id='cty-post__parttime'/>
                                 <label htmlFor="cty-post__parttime">Part time</label>
                             </div>
                             <div className="input-group__check--wrap">
-                                <input type="checkbox" value='Remote' id='cty-post__remote'/>
+                                <input type="checkbox" {...register('type')} value='Remote' id='cty-post__remote'/>
                                 <label htmlFor="cty-post__remote">Remote</label>
                             </div>
                         </div>
@@ -74,25 +96,25 @@ const CtyPost = () => {
 
                     <div className='input-group'>
                         <label htmlFor="">Số lượng <span className='input-required'>*</span></label>
-                        <input type='number' className='input-group__input' required id='' placeholder=''/>
+                        <input type='number' className='input-group__input' {...register('amount', {required : true, min: 1})}  id='' placeholder=''/>
                     </div>
 
                     <div className='input-group'>
                         <label htmlFor="">Hạn chót nộp hồ sơ <span className='input-required'>*</span></label>
-                        <input type='date' className='input-group__input' required id='' placeholder=''/>
+                        <input type='date' className='input-group__input' {...register('deadline', {required : true})} id='' placeholder=''/>
                     </div>
 
                     <div className='input-group'>
                         <label htmlFor="">Mô tả công việc <span className='input-required'>*</span></label>
-                        <textarea name="" id="" cols="30" rows="10" className='input-group__input' ></textarea>
+                        <textarea name="" id="" cols="30" rows="10" {...register('desciption', {required : true})} className='input-group__input' ></textarea>
                     </div>
                     <div className='input-group'>
                         <label htmlFor="">Yêu cầu công việc <span className='input-required'>*</span></label>
-                        <textarea name="" id="" cols="30" rows="10" className='input-group__input' ></textarea>
+                        <textarea name="" id="" cols="30" rows="10" {...register('requiremnent', {required : true})} className='input-group__input' ></textarea>
                     </div>
                     <div className='input-group'>
                         <label htmlFor="">Thông tin khác </label>
-                        <textarea name="" id="" cols="30" rows="10" className='input-group__input' ></textarea>
+                        <textarea name="" id="" cols="30" rows="10" {...register('otherInfo')} className='input-group__input' ></textarea>
                     </div>
                     
 

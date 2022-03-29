@@ -4,7 +4,7 @@ import { addDoc, collection} from 'firebase/firestore'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth, db } from '../../firebase-config'
 
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 
 import {Link, useNavigate} from 'react-router-dom' 
 
@@ -12,47 +12,22 @@ import './signup.scss'
 
 import Button from '../Button/Button'
 
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 const Signup = (props) => {
 
     let navigate = useNavigate()
 
     // Define type
-    const [city, setCity] = useState('Thành phố')
     let name;
     if (props.type === 'cty') {
         name = 'doanh nghiệp'
     } else if (props.type ==='uni') {
         name = 'trường'
     }
-
-    // Select city open
-    const [selectCityOpen, setCitySelectOpen] = useState(false)
-
-    const handleSelectCityOpen = (e) => {
-        setCitySelectOpen(!selectCityOpen)
-    }   
-    
-    const handleCityOptionClick = (e) => {
-        setCity(e.target.innerText)
-        setCitySelectOpen(!selectCityOpen)
-    }
     // Select open
-
-    // Select HR Info
+    const [city, setCity] = useState('Hồ Chí Minh')
     const [HRInfo, setHRInfo] = useState(false)
-    const [selectHROpen, setSelectHROpen] = useState(false)
-
-    const handleHROptionClick = (e) => {
-        setHRInfo(e.target.innerText === 'Có' ? true : false )
-        setSelectHROpen(!selectHROpen)
-    }
-
-    const handleSelectHROpen = () => {
-        setSelectHROpen(!selectHROpen)
-    }
-    // HR Info
 
     // Form
 
@@ -76,19 +51,40 @@ const Signup = (props) => {
     //         des: ''
     //     }
     // });
+    const watchPassword = watch('password')
+    console.log(watchPassword)
+    const [signUpPassword, setSignUpPassword] = useState('')
 
-    const [signUpPassword, setSignPassword] = useState('')
+    const [errorPass, setErrorPass] = useState('')
+
+
+    const confirmPassword = (value) => {
+        if (value === watchPassword) {
+            setSignUpPassword(value)
+            setErrorPass('')
+        } else {
+            setSignUpPassword('')
+            setErrorPass('Mật khẩu chưa khớp')
+        }
+    }
 
     const onSubmit = async data => {
+        data.city = city
+        data.hr = HRInfo
         console.log(data)
 
-        await createUserWithEmailAndPassword(auth, data.email, signUpPassword).then((result) => {
-            alert('Đăng kí thành công')
-            navigate('/login')
-        })
-        .catch((message) => {
-            alert(message)
-        })
+        if (errorPass) {
+            alert('Đăng kí không thành công')
+        } else {
+            await createUserWithEmailAndPassword(auth, data.email, signUpPassword).then((result) => {
+                alert('Đăng kí thành công')
+                navigate('/login')
+            })
+            .catch((message) => {
+                alert(message)
+            })
+        }
+
 
         await addDoc(userCollectionRef, data)
     };
@@ -104,7 +100,9 @@ const Signup = (props) => {
                 <input type="text" {...register('type')} defaultValue={props.type} style={{display: 'none'}}/>
                 <div className='input-group'>
                     <label htmlFor="">Tên {name} <span className='input-required'>*</span></label>
-                    <input type='text' className='input-group__input' {...register('name', {required: true})} placeholder=''/>
+                    <input type='text' className='input-group__input' {...register('name', {required: 'Vui lòng nhập tên'})}/>
+                    {/* <h4 className="input-group__error"></h4> */}
+                    {errors.name && <h4 className="input-group__error">Vui lòng nhập tên</h4>}
                 </div>
 
                 <div className='input-group'>
@@ -119,7 +117,8 @@ const Signup = (props) => {
 
                 <div className='input-group'>
                     <label htmlFor="">Số điện thoại <span className='input-required'>*</span></label>
-                    <input type='tel' className='input-group__input' {...register('phone', {required: true})}  placeholder=''/>
+                    <input type='tel' className='input-group__input' {...register('phone', {required: true, minLength: 10, maxLength: 13})}  placeholder=''/>
+                    {errors.phone && <h4 className="input-group__error">Vui lòng nhập lại</h4>}
                 </div>
 
                 <div className='input-group'>
@@ -127,38 +126,56 @@ const Signup = (props) => {
                     <input type='text' className='input-group__input' {...register('address', {required: true})} placeholder=''/>
                 </div>
 
-                <div className='input-group'>
-                    <label htmlFor="">Thành phố <span className='input-required'>*</span></label>
-                    <input type="text" value={city} style={{display: 'none'}} {...register('city', {required: true})} />
-                    <div className="input-group__select">
-                        <div className="input-group__select--default" onClick={handleSelectCityOpen}>
-                            <span>{city}</span>
-                            <KeyboardArrowDownIcon/>
-                        </div>
+                {/* <Controller
+                    name="select"
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field }) => <Select 
+                    {...field} 
+                    options={[
+                        { value: "chocolate", label: "Chocolate" },
+                        { value: "strawberry", label: "Strawberry" },
+                        { value: "vanilla", label: "Vanilla" }
+                    ]} 
+                    />}
+                /> */}
 
-                        <div className={`input-group__select--list ${selectCityOpen ? 'select-open' : ''}`} onMouseLeave={handleSelectCityOpen}>
-                            <div className="input-group__select--option" onClick={handleCityOptionClick}>Hồ Chí Minh</div>
-                            <div className="input-group__select--option" onClick={handleCityOptionClick}>Hà Nội</div>
-                            <div className="input-group__select--option" onClick={handleCityOptionClick}>Đà Nẵng</div>
-                        </div>
-                    </div>
+
+                <div className="input-group">
+                    <FormControl>
+                        <InputLabel id="sign-up__city">Thành phố</InputLabel>
+                        <Select
+                            labelId="sign-up__city"
+                            id="sign-up__select-city"
+                            value={city}
+                            label="Thành phố"
+                            onChange={(e) => {
+                                setCity(e.target.value)
+                            }}
+                            // {...register('city', {required: true})}
+                        >
+                            <MenuItem value='Hồ Chí Minh'>Hồ Chí Minh</MenuItem>
+                            <MenuItem value='Hà Nội'>Hà Nội</MenuItem>
+                            <MenuItem value='Đà Nẵng'>Đà Nẵng</MenuItem>
+                        </Select>
+                    </FormControl>
                 </div>
 
                 <div className='input-group'>
                     <label htmlFor="">Thông tin người tuyển dụng</label>
-                    <input type="text" value={HRInfo} style={{display: 'none'}} {...register('hr', {required: false})} />
-                    
-                    <div className="input-group__select">
-                        <div className="input-group__select--default" onClick={handleSelectHROpen}>
-                            <span>{HRInfo ? 'Có' : 'Không'}</span>
-                            <KeyboardArrowDownIcon/>
-                        </div>
-
-                        <div className={`input-group__select--list ${selectHROpen ? "select-open" : ""}`} onMouseLeave={handleSelectHROpen}>
-                            <div className="input-group__select--option" onClick={handleHROptionClick}>Có</div>
-                            <div className="input-group__select--option" onClick={handleHROptionClick}>Không</div>
-                        </div>
-                    </div>
+                    <FormControl>
+                        <Select
+                            id="sign-up__select-city"
+                            value={HRInfo}
+                            onChange={(e) => {
+                                setHRInfo(e.target.value)
+                            }}
+                            // {...register('hr', {required: true})}
+                        >
+                            <MenuItem value={true}>Có</MenuItem>
+                            <MenuItem value={false}>Không</MenuItem>
+                        </Select>
+                    </FormControl>
                 </div>
 
                 <div className={`input-group ${HRInfo ? "" : "dis-none"}`}>
@@ -168,12 +185,13 @@ const Signup = (props) => {
 
                 <div className={`input-group ${HRInfo ? "" : "dis-none"}`}>
                     <label htmlFor="">Email <span className='input-required'>*</span></label>
-                    <input type='email' className='input-group__input' {...register('hrEmail', {required: HRInfo})} placeholder=''/>
+                    <input type='email' className='input-group__input' {...register('hrEmail', {required: HRInfo, pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"})} placeholder=''/>
                 </div>
 
                 <div className={`input-group ${HRInfo ? "" : "dis-none"}`}>
                     <label htmlFor="">Số điện thoại <span className='input-required'>*</span></label>
-                    <input type='tel' className='input-group__input' {...register('hrPhone', {required: HRInfo})} placeholder=''/>
+                    <input type='tel' className='input-group__input' {...register('hrPhone', {required: HRInfo, minLength: 10, maxLength: 13})} placeholder=''/>
+                    {errors.hrPhone && <h4 className="input-group__error">Vui lòng nhập lại</h4>}  
                 </div>
 
                 <div className='input-group'>
@@ -188,14 +206,16 @@ const Signup = (props) => {
 
                 <div className='input-group'>
                     <label htmlFor="">Mật khẩu <span className='input-required'>*</span></label>
-                    <input type='password' className='input-group__input' required placeholder='8 - 16 ký tự và không có ký tự đặc biệt'/>
+                    <input type='password' className='input-group__input' {...register('password', {required: true})} placeholder='8 - 16 ký tự và không có ký tự đặc biệt'/>
                 </div>
 
                 <div className='input-group'>
                     <label htmlFor="">Nhập lại mật khẩu <span className='input-required'>*</span></label>
                     <input type='password' className='input-group__input' required placeholder='' onChange={(e) => {
-                        setSignPassword(e.target.value)
-                    }}/>
+                        confirmPassword(e.target.value)
+                    }}
+                    />
+                    <h4 className="input-group__error">{errorPass}</h4>
                 </div>
 
                 <div className="signup-confirm">

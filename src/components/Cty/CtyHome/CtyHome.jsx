@@ -19,7 +19,7 @@ const CtyHome = () => {
                     <Filters/>
                 </div>
                 <div className="col-8">
-                    <JobList/>
+                    <JobList type='cty'/>
                 </div>
             </div>
         </div>

@@ -5,7 +5,7 @@ const UsersSlice = createSlice({
     initialState: '',
     reducers: {
         updateUsers: (state, action) => {
-            return state = action.payload
+            return {...state, ...action.payload}
         }
     }
 })

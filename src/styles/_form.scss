@@ -117,6 +117,12 @@
             &.dis-none {
                 display: none;
             }
+
+            &__error {
+                color: $red-color;
+                font-size: 13px;
+                font-weight: 600;
+            }
         }
     }
 }

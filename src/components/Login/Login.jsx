@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 
 import { auth, provider, db } from '../../firebase-config';
-import { doc, collection, getDocs } from 'firebase/firestore'
+import { doc, collection, getDocs, updateDoc } from 'firebase/firestore'
 import { signInWithEmailAndPassword,  signInWithPopup } from 'firebase/auth'
 
 import { useNavigate } from 'react-router-dom';
