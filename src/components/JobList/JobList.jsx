@@ -9,7 +9,6 @@ import { collection, getDocs } from 'firebase/firestore'
 
 import CtyPostSlice from '../../redux/Slice/CtyPostSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectCtyPostList } from '../../redux/selectors';
 
 const JobList = (props) => {
 
@@ -27,7 +26,6 @@ const JobList = (props) => {
         getCtyPost()
         
     }, []);
-    console.log(ctyPost)
     dispatch(CtyPostSlice.actions.updatePosts(ctyPost))
 
     return (

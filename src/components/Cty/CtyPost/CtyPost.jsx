@@ -106,11 +106,11 @@ const CtyPost = () => {
 
                     <div className='input-group'>
                         <label htmlFor="">Mô tả công việc <span className='input-required'>*</span></label>
-                        <textarea name="" id="" cols="30" rows="10" {...register('desciption', {required : true})} className='input-group__input' ></textarea>
+                        <textarea name="" id="" cols="30" rows="10" {...register('description', {required : true})} className='input-group__input' ></textarea>
                     </div>
                     <div className='input-group'>
                         <label htmlFor="">Yêu cầu công việc <span className='input-required'>*</span></label>
-                        <textarea name="" id="" cols="30" rows="10" {...register('requiremnent', {required : true})} className='input-group__input' ></textarea>
+                        <textarea name="" id="" cols="30" rows="10" {...register('requirement', {required : true})} className='input-group__input' ></textarea>
                     </div>
                     <div className='input-group'>
                         <label htmlFor="">Thông tin khác </label>

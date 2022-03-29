@@ -1,28 +1,37 @@
 import React, { useState } from 'react';
 
-import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom'
 
+import './job-card.scss'
 import {Clock, Bookmark, BookmarkFill} from 'react-bootstrap-icons'
 
 import Button from '../Button/Button';
-
-import './job-card.scss'
-import { getDoc, doc } from 'firebase/firestore';
-import { db } from '../../firebase-config'
+import JobInfoSlice from '../../redux/Slice/JobInfoSlice'
 
 const JobCard = (props) => {
+
+
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const handleJobInfo = () => {
+        dispatch(JobInfoSlice.actions.updateJobInfo(props))
+        navigate('/jobinfo')
+    }
 
     return (
         <div className="job-card">
             <div className="job-card__cty">
                 <img src="https://www.fpt-software.com/wp-content/uploads/sites/2/2017/04/fpt-software-1.jpg" alt="" />
                 <div className="job-card__cty--in4">
-                    <h4>{props.position}</h4>
+                    <h4 onClick={() => {
+                        handleJobInfo()
+                    }}>{props.position}</h4>
                     <h6>{props.author.name}</h6>
                 </div>
             </div>
             <ul className="job-card__tags">
-                {props.type.map((type) => <li>{type}</li>)}
+                {props.type.map((type, index) => <li key={index}>{type}</li>)}
                 
                 <li>{props.address}</li>
             </ul>

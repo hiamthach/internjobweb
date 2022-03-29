@@ -43,9 +43,19 @@
     }
 
     &-des {
+        display: flex;
+        flex-direction: column;
+        gap: 54px;
+        padding: 0 12px;
         p {
             word-wrap: break-word;
             font-size: 14px;
+        }
+        &__gr {
+            h2 {
+                font-size: 18px;
+                margin: 12px 0;
+            }
         }
     }
 

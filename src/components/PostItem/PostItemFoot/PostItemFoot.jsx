@@ -44,7 +44,7 @@ const PostItemFoot = (props) => {
         <div className='post-item-foot'>
             <div className="post-item-foot__wrap">
                 <Person className="post-item-foot__wrap--icon"/>
-                <p>0 Ứng viên</p>
+                <p>{props.candidates.length} Ứng viên</p>
             </div>
 
             {
