@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 import './post-item-foot.scss'
@@ -8,7 +8,18 @@ import './post-item-foot.scss'
 import { Person, PencilSquare, DoorClosed, X} from 'react-bootstrap-icons'
 import { Repeat } from '@mui/icons-material';
 
+import { useDispatch } from 'react-redux';
+import CtyPostSettingSlice from '../../../redux/Slice/CtyPostSettingSlice';
+
 const PostItemFoot = (props) => {
+
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+    const handlePostSetting = () => {
+        dispatch(CtyPostSettingSlice.actions.updatePostSetting({...props}))
+        navigate(`/cty/post/setting/${props.id}`)
+    }
 
     const setFooter = (status) => {
         if (status === 'closed') {
@@ -29,7 +40,7 @@ const PostItemFoot = (props) => {
                 <>
                     <div className="post-item-foot__wrap">
                         <PencilSquare className="post-item-foot__wrap--icon"/>
-                        <p>Chỉnh sửa</p>
+                        <p onClick={handlePostSetting}>Chỉnh sửa</p>
                     </div>
                     <div className="post-item-foot__wrap">
                         <DoorClosed className="post-item-foot__wrap--icon"/>

@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 // import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { updateDoc, doc } from 'firebase/firestore';
@@ -17,6 +18,7 @@ import { useSelector } from 'react-redux';
 import Button from '../../Button/Button';
 
 const CtyAccountSetting = () => {
+    const navigate = useNavigate()
     const user = useSelector(selectUser)
 
     const [city, setCity] = useState(user.city)
@@ -36,9 +38,11 @@ const CtyAccountSetting = () => {
     const onSubmit = async data => {
         data.city = city
         data.hr = HRInfo
-        updateDoc(doc(db, "users", user.id), data)
         console.log(data)
+        updateDoc(doc(db, "users", user.id), data)
         dispatch(UsersSlice.actions.updateUsers(data))
+        alert('Cập nhật thành công!')
+        navigate('/cty')
     };
 
     return (
@@ -53,7 +57,7 @@ const CtyAccountSetting = () => {
 
                 <div className='input-group'>
                     <label htmlFor="">Email <span className='input-required'>*</span></label>
-                    <input type='email' className='input-group__input' defaultValue={user.email} {...register('password', {required: true})} placeholder=''/>
+                    <input type='email' className='input-group__input' defaultValue={user.email} {...register('email', {required: true})} placeholder=''/>
                 </div>
 
                 <div className='input-group'>

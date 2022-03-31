@@ -8,7 +8,7 @@ import ForgetPassPage from './pages/ForgetPassPage';
 import SignupPage from './pages/SignupPage';
 import JobInfoPage from './pages/JobInfoPage'
 
-import { CtyHomePage, CtySignupPage, CtyInfoPage, CtyPostListPage, CtyAccountPage, CtyAccountSettingPage, CtyPostPage } from './pages/cty/index'
+import { CtyHomePage, CtySignupPage, CtyInfoPage, CtyPostListPage, CtyAccountPage, CtyAccountSettingPage, CtyPostPage, CtyPostSettingPage } from './pages/cty/index'
 
 const Routers = () => {
     return (
@@ -63,6 +63,10 @@ const Routers = () => {
             <Route 
                 path='/cty/post'
                 element={<CtyPostPage/>}
+            />
+            <Route 
+                path='/cty/post/setting/:id'
+                element={<CtyPostSettingPage/>}
             />
             {/* Cty */}
             {/* Uni */}

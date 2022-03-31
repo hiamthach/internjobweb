@@ -31,9 +31,9 @@ const Login = () => {
         })
     }
 
-    const usersRef = collection(db, "users")
-
     const [users, setUsers] = useState([])
+    
+    const usersRef = collection(db, "users")
 
     useEffect(() => {
         const getUser = async () => {

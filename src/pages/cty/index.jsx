@@ -5,4 +5,5 @@ export { default as CtyPostListPage} from './CtyPostListPage'
 export { default as CtyAccountPage} from './CtyAccountPage'
 export { default as CtyAccountSettingPage} from './CtyAccountSettingPage'
 export { default as CtyPostPage} from './CtyPostPage'
+export { default as CtyPostSettingPage} from './CtyPostSettingPage'
 

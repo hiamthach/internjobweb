@@ -34,8 +34,7 @@ const PostItem = (props) => {
                 </div>
             </div>
             <PostItemFoot
-                status={props.status}
-                candidates={props.candidates}
+                {...props}
             />
         </div>
     );

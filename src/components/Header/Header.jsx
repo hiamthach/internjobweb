@@ -9,17 +9,24 @@ import Logo from '../Logo/Logo';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../redux/selectors';
 
+import { signOut } from 'firebase/auth'
+import { auth } from '../../firebase-config'
+
 const Header = (props) => {
 
     const user = useSelector(selectUser)
 
     console.log(user)
 
+    const userSignOut = () => {
+        signOut(auth)
+    }
+
     return (
         <div>
             <header className="header">
             <Logo
-                type={props.type}
+                type={user.type}
             />
             <div className="header-nav">
                 <div className={`header-nav__item ${props.where === 'post-list' ? 'active' : ''}`}>
@@ -30,7 +37,7 @@ const Header = (props) => {
                     <div className="header-nav__item-dropdown">
                         <Link to='/cty/account/setting' className="header-nav__item-dropdown__item">Cài đặt tài khoản</Link>
                         <Link to='/cty/account/setting' className="header-nav__item-dropdown__item">Danh sách đã lưu</Link>
-                        <Link to='/' className="header-nav__item-dropdown__item">Đăng xuất</Link>
+                        <Link to='/' onClick={userSignOut} className="header-nav__item-dropdown__item">Đăng xuất</Link>
                     </div>
                 </div>
                 <div className={`header-nav__item ${props.where === 'post' ? 'active' : ''}`}>
