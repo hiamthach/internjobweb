@@ -1,100 +1,106 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
-import { addDoc, collection} from 'firebase/firestore'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import './update-info.scss'
+
+import { addDoc, collection, getDocs} from 'firebase/firestore'
+import { onAuthStateChanged } from 'firebase/auth';
 import { auth, db } from '../../firebase-config'
 
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
-import {Link, useNavigate} from 'react-router-dom' 
-
-import './signup.scss'
+import { useNavigate} from 'react-router-dom' 
 
 import Button from '../Button/Button'
 
+import { useDispatch } from 'react-redux';
+import UsersSlice from '../../redux/Slice/UsersSlice'
+
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import { useAuth } from '../../contexts/AuthContext'
 
-const Signup = (props) => {
+const UpdateInfo = (props) => {
 
-    let navigate = useNavigate()
+    const navigate = useNavigate()
 
-    const { signup } = useAuth()
+    const [email, setEmail] = useState('')
+    const [name, setName] = useState('')
 
-    // Define type
-    let name;
-    if (props.type === 'cty') {
-        name = 'doanh nghiệp'
-    } else if (props.type ==='uni') {
-        name = 'trường'
-    }
-    // Select open
+    const [type, setType] = useState('cty')
     const [city, setCity] = useState('Hồ Chí Minh')
     const [HRInfo, setHRInfo] = useState(false)
 
-    // Form
+    useEffect(() => {
+        setName(type === 'cty'? 'doanh nghiệp' : 'trường')
+    }, [type])
+    const dispatch = useDispatch()
 
-    const userCollectionRef = collection(db, 'users')
+    const [currentUser, setCurrentUser] = useState('')    
+    const [users, setUsers] = useState([])
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm()
+    const usersRef = collection(db, "users")
 
-    const watchPassword = watch('password')
-    console.log(watchPassword)
-    const [signUpPassword, setSignUpPassword] = useState('')
-
-    const [errorPass, setErrorPass] = useState('')
-
-
-    const confirmPassword = (value) => {
-        if (value === watchPassword) {
-            setSignUpPassword(value)
-            setErrorPass('')
-        } else {
-            setSignUpPassword('')
-            setErrorPass('Mật khẩu chưa khớp')
+    useEffect(() => {
+        const getUser = async () => {
+            const data = await getDocs(usersRef)
+            setUsers(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
         }
-    }
+
+        getUser()
+    }, []);
+
+    onAuthStateChanged(auth, (currentUser) => {
+        setEmail(currentUser.email)
+        if (currentUser) {
+            const userLogin = users.filter((user) => user.email === currentUser.email)
+            
+            dispatch(UsersSlice.actions.updateUsers(userLogin[0]))
+            setCurrentUser(userLogin[0])
+        }
+    })
+    
+
+    const { register, handleSubmit, formState: { errors } } = useForm()
+
 
     const onSubmit = async data => {
+        data.email = email
+        data.type = type
         data.city = city
         data.hr = HRInfo
         console.log(data)
 
-        if (errorPass) {
-            alert('Đăng kí không thành công')
-        } else {
-            signup(data.email, signUpPassword)
-                .then((res) => {
-                    alert('Đăng kí thành công', res)
-                    navigate('/login')
-                })
-                .catch((err) => {
-                    alert(err)
-                })
-        }
-
-        await addDoc(userCollectionRef, data)
+        await addDoc(usersRef, data)
+        navigate(`/${type}`)
+        alert('Cập nhật thành công')
     };
     // Form
 
     
 
     return (
-        <div className='signup'>
-            <h1 className="form-title">Đăng ký</h1>
-
+        <div className="form update-form">
+            <h1 className='form-title'>Cập nhật thông tin</h1>
+            
             <form className="input-wrapper" onSubmit={handleSubmit(onSubmit)}>
-                <input type="text" {...register('type')} defaultValue={props.type} style={{display: 'none'}}/>
+                <div className='input-group'>
+                    <label htmlFor="">Đăng nhập với tư cách</label>
+                    <FormControl>
+                        <Select
+                            id="update__select-type"
+                            value={type}
+                            onChange={(e) => {
+                                setType(e.target.value)
+                            }}
+                        >
+                            <MenuItem value='cty'>Doanh nghiệp</MenuItem>
+                            <MenuItem value='uni'>Trường Đại học / Cao đẳng</MenuItem>
+                        </Select>
+                    </FormControl>
+                </div>
                 <div className='input-group'>
                     <label htmlFor="">Tên {name} <span className='input-required'>*</span></label>
                     <input type='text' className='input-group__input' {...register('name', {required: 'Vui lòng nhập tên'})}/>
                     {/* <h4 className="input-group__error"></h4> */}
                     {errors.name && <h4 className="input-group__error">Vui lòng nhập tên</h4>}
-                </div>
-
-                <div className='input-group'>
-                    <label htmlFor="">Email <span className='input-required'>*</span></label>
-                    <input type='email' className='input-group__input' {...register('email', {required: true, pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" })} placeholder=''/>
                 </div>
 
                 <div className='input-group'>
@@ -112,21 +118,6 @@ const Signup = (props) => {
                     <label htmlFor="">Địa chỉ <span className='input-required'>*</span></label>
                     <input type='text' className='input-group__input' {...register('address', {required: true})} placeholder=''/>
                 </div>
-
-                {/* <Controller
-                    name="select"
-                    control={control}
-                    rules={{ required: true }}
-                    render={({ field }) => <Select 
-                    {...field} 
-                    options={[
-                        { value: "chocolate", label: "Chocolate" },
-                        { value: "strawberry", label: "Strawberry" },
-                        { value: "vanilla", label: "Vanilla" }
-                    ]} 
-                    />}
-                /> */}
-
 
                 <div className="input-group">
                     <FormControl>
@@ -191,33 +182,13 @@ const Signup = (props) => {
                     <textarea name="" cols="30" rows="10" className='input-group__input' {...register('des', {required: true})}></textarea>
                 </div>
 
-                <div className='input-group'>
-                    <label htmlFor="">Mật khẩu <span className='input-required'>*</span></label>
-                    <input type='password' className='input-group__input' {...register('password', {required: true})} placeholder='8 - 16 ký tự và không có ký tự đặc biệt'/>
-                </div>
-
-                <div className='input-group'>
-                    <label htmlFor="">Nhập lại mật khẩu <span className='input-required'>*</span></label>
-                    <input type='password' className='input-group__input' required placeholder='' onChange={(e) => {
-                        confirmPassword(e.target.value)
-                    }}
-                    />
-                    <h4 className="input-group__error">{errorPass}</h4>
-                </div>
-
-                <div className="signup-confirm">
-                    <input type="checkbox" id='signup-confirm__input' required/>
-                    <label htmlFor='signup-confirm__input'>Tôi đồng ý với điều khoản dịch vụ và chính sách bảo mật</label>
-                </div>
-
-                    <input type="submit" id='signup-submit' />
-                    <label htmlFor='signup-submit' className="signup-btns">
-                        <Button>Đăng ký</Button>
+                    <input type="submit" id='update-user-submit' style={{display: 'none'}}/>
+                    <label htmlFor='update-user-submit' className="signup-btns">
+                        <Button>Cập nhật thông tin</Button>
                     </label>
             </form> 
-
         </div>
     );
 }
 
-export default Signup;
+export default UpdateInfo;

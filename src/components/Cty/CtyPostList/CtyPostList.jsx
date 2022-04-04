@@ -21,12 +21,12 @@ const CtyPostlist = () => {
     useEffect(() => {
         const getPostList = async () => {
             const data = await getDocs(postsRef)
+            console.log(user.email)
             setPostList(data.docs.map((doc) => ({...doc.data(), id: doc.id})).filter((post) => post.author.email === user.email))
         }
 
         getPostList()
-    }, []);
-
+    }, [user]);
     return (
         <div className='cty-post-list'>
             <div className="cty-post-list__head">

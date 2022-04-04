@@ -1,11 +1,6 @@
-import React, {useState, useEffect} from 'react';
-
-import { auth, provider, db } from '../../firebase-config';
-import { doc, collection, getDocs, updateDoc } from 'firebase/firestore'
-import { signInWithEmailAndPassword,  signInWithPopup } from 'firebase/auth'
+import React, {useState} from 'react';
 
 import { useNavigate } from 'react-router-dom';
-
 
 import { Link } from 'react-router-dom';
 import './login.scss'
@@ -14,46 +9,24 @@ import Logo from '../Logo/Logo'
 import Button from '../Button/Button'
 import { Google } from 'react-bootstrap-icons';
 
-import UsersSlice from '../../redux/Slice/UsersSlice';
-import { useDispatch } from 'react-redux';
+import { useAuth } from '../../contexts/AuthContext';
 
 const Login = () => {
 
-    let navigate = useNavigate()
+    const navigate = useNavigate()
+    const { login, signInWithGoogle, currentUser } = useAuth()
 
     const [loginEmail, setLoginEmail] = useState('')
     const [loginPassword, setLoginPassword] = useState('')
 
-
-    const loginWithGoogle = async () => {
-        await signInWithPopup(auth, provider).then((result) => {
-            console.log(result)
-        })
+    const loginWithGoogle = () => {
+        signInWithGoogle()
+        navigate('/update-info')
     }
-
-    const [users, setUsers] = useState([])
     
-    const usersRef = collection(db, "users")
-
-    useEffect(() => {
-        const getUser = async () => {
-            const data = await getDocs(usersRef)
-            setUsers(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
-        }
-
-        getUser()
-        
-    }, []);
-    
-    const dispatch = useDispatch()
-    const loginWithEmailPassWord = async () => {
-        await signInWithEmailAndPassword(auth, loginEmail, loginPassword)
-            .then((res) => {
-                console.log(res.user.email)
-                const userLogin = users.filter((user) => user.email === loginEmail)
-                dispatch(UsersSlice.actions.updateUsers(userLogin[0]))
-                navigate(`/${userLogin[0].type}`)
-            })    
+    const loginWithEmailPassWord = () => {
+        login(loginEmail, loginPassword)
+        navigate('/')
     }
 
     return (
@@ -98,6 +71,10 @@ const Login = () => {
             </form>
 
             <Link to='/forgetpass' className='login-forget'>Quên mật khẩu?</Link>
+            <p className='login-signup'>
+                Bạn chưa có tài khoản? 
+                <Link to='/signup'>Đăng ký</Link>
+            </p>
         </div>
     );
 }

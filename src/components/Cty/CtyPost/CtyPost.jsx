@@ -15,7 +15,11 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from '../../Button/Button'
 
+import { useAuth } from '../../../contexts/AuthContext';
+
 const CtyPost = () => {
+
+    const { currentUser } = useAuth()
 
     const navigate = useNavigate()
 
@@ -29,10 +33,9 @@ const CtyPost = () => {
 
     const onSubmit = (data) => {
         data.candidates = []
-        data.author = user
+        data.author = currentUser.id
 
         addDoc(postsRef, data)
-
         alert('Đăng bài thành công!')
         navigate('/cty/post-list')
     }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import './jobinfo.scss'
 
@@ -14,6 +14,12 @@ import { selectJobInfo } from '../../redux/selectors'
 const JobInfo = () => {
 
     const jobInfo = useSelector(selectJobInfo)
+
+    const navigate = useNavigate()
+
+    const navigateBack = () => {
+        navigate(-1)
+    }
 
     return (
         <div className="jobinfo">
@@ -65,9 +71,9 @@ const JobInfo = () => {
 
                 <div className="jobinfo-content__btns">
                     <Button>Ứng tuyển</Button>
-                    <Link to='/'>
+                    <div onClick={navigateBack}>
                         <ButtonArrow direction='left'>Trở lại</ButtonArrow>
-                    </Link>
+                    </div>
                 </div>
             </div>
         </div>

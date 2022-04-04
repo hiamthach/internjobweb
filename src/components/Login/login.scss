@@ -95,6 +95,14 @@
             margin: 0 auto;
         }
     }
+    &-signup {
+        font-size: 13px;
+        a {
+            color: $primary-color;
+            text-decoration: underline;
+            margin-left: 3px;
+        }
+    }
 }
 
 #login-submit {
