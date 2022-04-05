@@ -1,24 +1,26 @@
 import React from 'react';
 
-import './cty-account.scss'
+import './account.scss'
 
-import ButtonArrow from '../../ButtonArrow/ButtonArrow'
+import ButtonArrow from '../ButtonArrow/ButtonArrow'
 import { Link } from 'react-router-dom'
 
-const CtyAccount = () => {
+
+
+const Account = () => {
     return (
-        <div className='cty-account'>
+        <div className='account'>
             <div className="row">
-                <div className="col-4 cty-account__info">
+                <div className="col-4 account__info">
                     <img src="https://www.fpt-software.com/wp-content/uploads/sites/2/2017/04/fpt-software-1.jpg" alt="" />
                     <h3>Công ty ABC</h3>
                 </div>
 
-                <div className="col-8 cty-account__links">
-                    <Link to='/cty/post-list'>
+                <div className="col-8 account__links">
+                    <Link to='/post-list'>
                         Danh sách bài đăng
                     </Link>
-                    <Link to='/cty/post-list'>
+                    <Link to='/post-list'>
                         Danh sách đã lưu
                     </Link>
                     <Link to='/account/setting'>
@@ -30,7 +32,7 @@ const CtyAccount = () => {
                 </div>
             </div>
 
-            <Link to='/' className='cty-account__signout'>
+            <Link to='/' className='account__signout'>
                 <ButtonArrow direction='left'>
                     Đăng xuất
                 </ButtonArrow>
@@ -39,4 +41,4 @@ const CtyAccount = () => {
     );
 }
 
-export default CtyAccount;
+export default Account;

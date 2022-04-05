@@ -6,7 +6,7 @@ import './jobinfo.scss'
 
 import Button from '../Button/Button'
 import ButtonArrow from '../ButtonArrow/ButtonArrow'
-import JobCard from '../JobCard/JobCard'
+import Card from '../Card/Card'
 
 import { useSelector } from 'react-redux';
 import { selectJobInfo } from '../../redux/selectors'
@@ -24,7 +24,7 @@ const JobInfo = () => {
     return (
         <div className="jobinfo">
             <div className="jobinfo-head">
-                <JobCard {...jobInfo}/>
+                <Card {...jobInfo}/>
             </div>
 
             <div className="jobinfo-content">

@@ -2,22 +2,26 @@ import React, {useEffect, useState} from 'react';
 
 import './job-list.scss'
 
-import JobCard from '../JobCard/JobCard';
+import Card from '../Card/Card';
 
 import { db } from '../../firebase-config'
 import { collection, getDocs } from 'firebase/firestore'
 
 import CtyPostSlice from '../../redux/Slice/CtyPostSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+
+import { useAuth } from '../../contexts/AuthContext'
 
 const JobList = (props) => {
 
+    const { currentUser } = useAuth()
     const dispatch = useDispatch()
-
+    
     const [ctyPost, setCtyPost] = useState([])
     
     useEffect(() => {
-        const ctyPostRef = collection(db, "cty-posts")
+        const reference = currentUser?.type === 'cty' ? 'uni-posts' : 'cty-posts' 
+        const ctyPostRef = collection(db, reference)
         const getCtyPost = async () => {
             const data = await getDocs(ctyPostRef)
             setCtyPost(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
@@ -25,7 +29,7 @@ const JobList = (props) => {
 
         getCtyPost()
         
-    }, []);
+    }, [currentUser]);
     dispatch(CtyPostSlice.actions.updatePosts(ctyPost))
 
     return (
@@ -37,7 +41,7 @@ const JobList = (props) => {
 
             {
                 ctyPost?.map((job, index) => {
-                    return <JobCard {...job} key={index}/>
+                    return <Card {...job} key={index}/>
                 })
             }
         </div>

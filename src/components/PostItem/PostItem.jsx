@@ -8,8 +8,6 @@ import PostItemFoot from './PostItemFoot/PostItemFoot';
 
 const PostItem = (props) => {
 
-    console.log(props)
-
     return (
         <div className={`post-item ${props.status}`}>
             <div className="post-item__content">
@@ -28,9 +26,9 @@ const PostItem = (props) => {
                 </div>
                 <h6 className="post-item__amount">Số lượng: <span>{props.amount}</span></h6>
                 <div className="post-item__time">
-                    <span className="post-item__start">15/03/2022 </span>
+                    <span className="post-item__start">{props.start} </span>
                     -
-                    <span className="post-item__end"> {props.deadline}</span>
+                    <span className="post-item__end"> {props.end}</span>
                 </div>
             </div>
             <PostItemFoot

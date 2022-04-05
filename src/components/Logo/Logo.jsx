@@ -10,10 +10,8 @@ const Logo = (props) => {
         type = 'Trường Đại học / Cao đẳng'
     }
 
-    const link = type ? `/${props.type}` : '/'
-
     return (
-        <Link to={link} className="logo">
+        <Link to='/' className="logo">
             <h1>ITInternshipJobs</h1>
             <h4>{type}</h4>
         </Link>

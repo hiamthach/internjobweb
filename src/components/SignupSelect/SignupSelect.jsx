@@ -7,7 +7,7 @@ import ButtonArrow from '../ButtonArrow/ButtonArrow';
 
 import './signup-select.scss'
 
-const SignupSelect = () => {
+const SignupSelect = ({isSelected}) => {
     return (
         <div className="form SeleSignupSelect-select">
             <Logo/>
@@ -15,12 +15,12 @@ const SignupSelect = () => {
             <h1 className="form-title">Đăng ký</h1>
 
             <div className="signup-select-btns">
-                <Link to='/cty/signup'>
+                <div className='signup-select-btn' onClick={() => isSelected('cty')}>
                     <Button>Doanh nghiệp</Button>
-                </Link>
-                <Link to='/uni/signup'>
+                </div>
+                <div className='signup-select-btn' onClick={()=> isSelected('uni')}>
                     <Button>Trường Đại học / Cao Đẳng</Button>
-                </Link>
+                </div>
             </div>
 
             <Link to='/login'>

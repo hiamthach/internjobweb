@@ -26,7 +26,13 @@ const Login = () => {
     
     const loginWithEmailPassWord = () => {
         login(loginEmail, loginPassword)
-        navigate('/')
+            .then(((res) => {
+                console.log(res)
+                navigate('/')
+            }))
+            .catch((err) => {
+                alert('Bạn nhập sai mật khẩu hoặc tài khoản')
+            })
     }
 
     return (

@@ -22,7 +22,6 @@ const Home = () => {
                     <JobList/>
                 </div>
             </div>
-            
         </div>
     );
 }

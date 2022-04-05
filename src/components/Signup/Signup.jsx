@@ -11,6 +11,7 @@ import {Link, useNavigate} from 'react-router-dom'
 import './signup.scss'
 
 import Button from '../Button/Button'
+import Logo from '../Logo/Logo';
 
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { useAuth } from '../../contexts/AuthContext'
@@ -80,7 +81,8 @@ const Signup = (props) => {
     
 
     return (
-        <div className='signup'>
+        <div className='signup form'>
+            <Logo type={props.type}/>
             <h1 className="form-title">Đăng ký</h1>
 
             <form className="input-wrapper" onSubmit={handleSubmit(onSubmit)}>

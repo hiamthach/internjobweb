@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes, Redirect, useLocation} from 'react-router-dom'
+import { Route, Routes, useLocation, Navigate} from 'react-router-dom'
 
 
 import HomePage from './pages/HomePage';
@@ -8,77 +8,75 @@ import ForgetPassPage from './pages/ForgetPassPage';
 import SignupPage from './pages/SignupPage';
 import JobInfoPage from './pages/JobInfoPage'
 import UpdateInfoPage from './pages/UpdateInfoPage';
-
-import { CtyHomePage, CtySignupPage, CtyInfoPage, CtyPostListPage, CtyAccountPage, CtyAccountSettingPage, CtyPostPage, CtyPostSettingPage } from './pages/cty/index'
+import PostListPage from './pages/PostListPage';
+import AccountPage from './pages/AccountPage'
+import AccountSettingPage from './pages/AccountSettingPage';
+import PostPage from './pages/PostPage'
+import PostSettingPage from './pages/PostSettingPage';
 
 import { useAuth } from './contexts/AuthContext';
 
 const Routers = () => {
     return (
         <Routes>
-            <ProtectedRoute 
+            <Route 
                 path='/'
-                element={<HomePage/>}
+                element={
+                        <HomePage/>
+                    }
             />
-            <ProtectedRoute 
+            <Route 
                 path='/login'
-                element={<LoginPage/>}
+                element={
+                    <LoginPage/>
+                }
             />
-            <ProtectedRoute
+            <Route
                 path='/forgetpass'
-                element={<ForgetPassPage/>}
+                element={
+                    <ForgetPassPage/>
+                }
             />
-            <ProtectedRoute
+            <Route
                 path='/signup'
-                element={<SignupPage/>}
+                element={
+                    <SignupPage/>
+                }
             />
-            <ProtectedRoute
+            <Route
                 path='/jobinfo'
                 element={<JobInfoPage/>}
             />
-            <ProtectedRoute 
+            <Route 
                 path='/update-info'
                 element={<UpdateInfoPage/>}
             />
+
+            <Route
+                path='/account'
+                element={<AccountPage/>}
+            />
+
+            <Route 
+                path='/account/setting'
+                element={<AccountSettingPage/>}
+            />
+
+            <Route
+                path='/post-list'
+                element={<PostListPage/>}
+            />
+
+            <Route 
+                path='/post'
+                element={<PostPage/>}
+            />
+
+            <Route 
+                path='/post/setting'
+                element={<PostSettingPage/>}
+            />
             
-
-            {/* Cty */}
-            <Route 
-                path='/cty'
-                element={<CtyHomePage/>}
-            />
-            <Route 
-                path='/cty/signup'
-                element={<CtySignupPage/>}
-            />
-            <Route 
-                path='/cty/info/:id'
-                element={<CtyInfoPage/>}
-            />
-            <Route 
-                path='/cty/post-list'
-                element={<CtyPostListPage/>}
-            />
-            <Route 
-                path='/cty/account'
-                element={<CtyAccountPage/>}
-            />
-            <Route 
-                path='/cty/account/setting'
-                element={<CtyAccountSettingPage/>}
-            />
-            <Route 
-                path='/cty/post'
-                element={<CtyPostPage/>}
-            />
-            <Route 
-                path='/cty/post/setting/:id'
-                element={<CtyPostSettingPage/>}
-            />
-            {/* Cty */}
-            {/* Uni */}
-
-            {/* Uni */}
         </Routes>
     );
 }
@@ -93,12 +91,16 @@ function ProtectedRoute(props) {
   
     const { path } = props
   
-    if (path === '/login' || path === '/register' || path ==='/forgot-password' || path === '/reset-password') {
-      return currentUser ? <Redirect to={location.state?.from ?? '/profile'} /> : <Route {...props} />
+    if (path === '/login' || path === '/signup' || path ==='/forgetpass' || path === '/reset-password') {
+      if (currentUser) {
+       return <Navigate to={location.state?.from ?? '/'} replace />
+        }
     }
   
-    return currentUser ? <Route {...props}/> : <Redirect to={{
-      pathname: '/login',
-      state: {from: path}
-    }}/>
+    if (!currentUser) {
+    return <Navigate to={{
+            pathname: '/login',
+            state: {from: path}
+            }} replace/>
+    }
   }

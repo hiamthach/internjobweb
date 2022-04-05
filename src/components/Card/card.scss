@@ -1,6 +1,6 @@
 @use '../../styles/' as *;
 
-.job-card {
+.card {
     display: block;
     width: 100%;
     background-color: #fff;
@@ -94,7 +94,7 @@
         }
 
         &.saved {
-            .job-card__mark--icon {
+            .card__mark--icon {
                 &:first-child{
                     display: none;
                 }

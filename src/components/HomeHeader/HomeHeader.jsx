@@ -12,10 +12,10 @@ const HomeHeader = () => {
             <Logo/>
             <div class="home-header-nav">
                 <div class="home-header-nav__item">
-                    <Link to='/cty'>Doanh nghiệp</Link>
+                    <Link to='/login'>Doanh nghiệp</Link>
                 </div>
                 <div class="home-header-nav__item">
-                    <Link to='/uni'>Trường Đại học / Cao đẳng</Link>
+                    <Link to='/login'>Trường Đại học / Cao đẳng</Link>
                 </div>
             </div>
             <div class="home-header-btns">

@@ -1,19 +1,18 @@
 import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { updateDoc, doc } from 'firebase/firestore';
 
-import { db} from '../../../firebase-config'
+import { db} from '../../firebase-config'
 
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 import { useForm } from 'react-hook-form'
 
-import Button from '../../Button/Button';
-import { useAuth } from '../../../contexts/AuthContext';
+import Button from '../Button/Button';
+import { useAuth } from '../../contexts/AuthContext';
 
-const CtyAccountSetting = () => {
+const AccountSetting = () => {
     const navigate = useNavigate()
 
     const { currentUser } = useAuth()
@@ -29,11 +28,11 @@ const CtyAccountSetting = () => {
         console.log(data)
         updateDoc(doc(db, "users", currentUser.id), data)
         alert('Cập nhật thành công!')
-        navigate('/cty')
+        navigate('/')
     };
 
     return (
-        <form className='form cty-account-setting' onSubmit={handleSubmit(onSubmit)}>
+        <form className='form account-setting' onSubmit={handleSubmit(onSubmit)}>
             <h1 className="form-title">Cài đặt tài khoản</h1>
             <div className="input-wrapper">
                 <div className='input-group'>
@@ -74,7 +73,6 @@ const CtyAccountSetting = () => {
                             onChange={(e) => {
                                 setCity(e.target.value)
                             }}
-                            // {...register('city', {required: true})}
                         >
                             <MenuItem value='Hồ Chí Minh'>Hồ Chí Minh</MenuItem>
                             <MenuItem value='Hà Nội'>Hà Nội</MenuItem>
@@ -137,4 +135,4 @@ const CtyAccountSetting = () => {
     );
 }
 
-export default CtyAccountSetting;
+export default AccountSetting;

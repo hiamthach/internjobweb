@@ -1,28 +1,26 @@
 import React, {useState} from 'react';
 
-import '../CtyPost/cty-post.scss'
+import '../Post/post.scss'
 
 import { useForm } from 'react-hook-form';
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 import { useSelector } from 'react-redux';
-import { selectUser, selectPostSetting } from '../../../redux/selectors'
+import { selectUser, selectPostSetting } from '../../redux/selectors'
 
-import { addDoc, collection, updateDoc, doc } from 'firebase/firestore'
-import { db } from '../../../firebase-config'
+import { collection, updateDoc, doc } from 'firebase/firestore'
+import { db } from '../../firebase-config'
 
 import { useNavigate } from 'react-router-dom';
 
-import Button from '../../Button/Button'
+import Button from '../Button/Button'
 
-const CtyPostSetting = () => {
+const PostSetting = () => {
 
     const navigate = useNavigate()
 
     const postSetting = useSelector(selectPostSetting)
     console.log(postSetting)
-
-    const postSettingTypes = postSetting.type
 
     const [city, setCity] = useState(postSetting.city)
 
@@ -39,12 +37,12 @@ const CtyPostSetting = () => {
         updateDoc(doc(db, "cty-posts", postSetting.id), data)
 
         alert('Cập nhật thành công')
-        navigate('/cty/post-list')
+        navigate('/post-list')
     }
 
     return (
-        <div className='cty-post'>
-            <form className="form cty-post__form" onSubmit={handleSubmit(onSubmit)}>
+        <div className='post'>
+            <form className="form post__form" onSubmit={handleSubmit(onSubmit)}>
                 <h1 className="form-title">Cập nhật bài đăng</h1>
                 <div className="input-wrapper">
                     <div className='input-group'>
@@ -85,16 +83,16 @@ const CtyPostSetting = () => {
                         <label htmlFor="">Loại việc <span className='input-required'>*</span></label>
                         <div className="input-group__check">
                             <div className="input-group__check--wrap">
-                                <input type="checkbox" {...register('type')} value='Full time' id='cty-post__fulltime'/>
-                                <label htmlFor="cty-post__fulltime">Full time</label>
+                                <input type="checkbox" {...register('type')} value='Full time' id='post__fulltime'/>
+                                <label htmlFor="post__fulltime">Full time</label>
                             </div>
                             <div className="input-group__check--wrap">
-                                <input type="checkbox" {...register('type')} value='Part time' id='cty-post__parttime'/>
-                                <label htmlFor="cty-post__parttime">Part time</label>
+                                <input type="checkbox" {...register('type')} value='Part time' id='post__parttime'/>
+                                <label htmlFor="post__parttime">Part time</label>
                             </div>
                             <div className="input-group__check--wrap">
-                                <input type="checkbox" {...register('type')} value='Remote' id='cty-post__remote'/>
-                                <label htmlFor="cty-post__remote">Remote</label>
+                                <input type="checkbox" {...register('type')} value='Remote' id='post__remote'/>
+                                <label htmlFor="post__remote">Remote</label>
                             </div>
                         </div>
                     </div>
@@ -126,8 +124,8 @@ const CtyPostSetting = () => {
                 </div>
 
                 <div className="form__submit">
-                    <input type="submit" id='cty-post__submit'/>
-                    <label htmlFor="cty-post__submit" className='form__submit--label'>
+                    <input type="submit" id='post__submit'/>
+                    <label htmlFor="post__submit" className='form__submit--label'>
                         <Button>Cập nhật bài đăng</Button>
                     </label>
                 </div>
@@ -139,5 +137,5 @@ const CtyPostSetting = () => {
     );
 }
 
-export default CtyPostSetting;
+export default PostSetting;
 
