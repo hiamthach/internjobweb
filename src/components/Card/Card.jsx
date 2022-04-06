@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
@@ -16,6 +16,8 @@ import { useAuth } from '../../contexts/AuthContext';
 
 const Card = (props) => {
     const { currentUser } = useAuth()
+
+    const [isSaved, setIsSaved] = useState(props.saved)
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -35,7 +37,27 @@ const Card = (props) => {
         }
 
         updateDoc(postRef, {...data.data(), candidates})
-        
+    }
+
+    const handleSave = async () => {
+        const userRef = doc(db, "users", currentUser.id)
+        const data = await getDoc(userRef)
+
+        const savedPosts = data.data().savePosts
+
+        if (!savedPosts.includes(props.id)) {
+            savedPosts.push(props.id)
+        }
+
+        if (isSaved) {
+            savedPosts.splice(savedPosts.indexOf(props.id), 1)
+            setIsSaved(!isSaved)
+        } else {
+            savedPosts.push(props.id)
+            setIsSaved(!isSaved)
+        }
+
+        updateDoc(userRef, {...data.data(), savePosts : savedPosts})
     }
 
     return (
@@ -61,9 +83,8 @@ const Card = (props) => {
             <div className="card__apply" onClick={handleApply}>
                 <Button>Ứng tuyển ngay</Button>
             </div>
-            <div className="card__mark">
-                <Bookmark className='card__mark--icon'/>
-                <BookmarkFill className='card__mark--icon'/>
+            <div className="card__mark" onClick={handleSave}>
+                {isSaved ? <BookmarkFill className='card__mark--icon'/> : <Bookmark className='card__mark--icon'/>}
             </div>  
         </div>
     );

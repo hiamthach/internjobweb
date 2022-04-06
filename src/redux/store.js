@@ -5,6 +5,7 @@ import UsersSlice  from "./Slice/UsersSlice";
 import CtyPostSlice from "./Slice/CtyPostSlice";
 import JobInfoSlice from "./Slice/JobInfoSlice";
 import CtyPostSettingSlice from "./Slice/CtyPostSettingSlice";
+import PostCandidatesSlice from "./Slice/PostCandidatesSlice";
 
 const store = configureStore({
     reducer: {
@@ -13,6 +14,7 @@ const store = configureStore({
         ctyPostSetting: CtyPostSettingSlice.reducer,
         jobInfo: JobInfoSlice.reducer,
         userAuth: UserAuthSlice.reducer,
+        postCandidates: PostCandidatesSlice.reducer,
     }
 })
 

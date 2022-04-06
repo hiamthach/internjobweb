@@ -29,7 +29,7 @@ const Header = (props) => {
                             <Link to={`/account`} className='header-nav__item--link'>{currentUser?.name}</Link>
                             <div className="header-nav__item-dropdown">
                                 <Link to='/account/setting' className="header-nav__item-dropdown__item">Cài đặt tài khoản</Link>
-                                <Link to='/account/setting' className="header-nav__item-dropdown__item">Danh sách đã lưu</Link>
+                                <Link to='/post/saved' className="header-nav__item-dropdown__item">Danh sách đã lưu</Link>
                                 <Link to='/login' onClick={signOut} className="header-nav__item-dropdown__item">Đăng xuất</Link>
                             </div>
                         </div>

@@ -10,6 +10,7 @@ import { Repeat } from '@mui/icons-material';
 
 import { useDispatch } from 'react-redux';
 import CtyPostSettingSlice from '../../../redux/Slice/CtyPostSettingSlice';
+import PostCandidatesSlice from '../../../redux/Slice/PostCandidatesSlice';
 
 const PostItemFoot = (props) => {
 
@@ -18,7 +19,12 @@ const PostItemFoot = (props) => {
 
     const handlePostSetting = () => {
         dispatch(CtyPostSettingSlice.actions.updatePostSetting({...props}))
-        navigate(`/cty/post/setting/${props.id}`)
+        navigate(`/post/setting/${props.id}`)
+    }
+
+    const handlePostCandidates = () => {
+        dispatch(PostCandidatesSlice.actions.updateCandidates({...props}))
+        navigate(`/post/candidates/${props.id}`)
     }
 
     const setFooter = (status) => {
@@ -53,7 +59,7 @@ const PostItemFoot = (props) => {
 
     return (
         <div className='post-item-foot'>
-            <div className="post-item-foot__wrap">
+            <div className="post-item-foot__wrap" onClick={handlePostCandidates}>
                 <Person className="post-item-foot__wrap--icon"/>
                 <p>{props.candidates.length} Ứng viên</p>
             </div>

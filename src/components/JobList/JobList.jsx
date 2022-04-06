@@ -17,31 +17,37 @@ const JobList = (props) => {
     const { currentUser } = useAuth()
     const dispatch = useDispatch()
     
-    const [ctyPost, setCtyPost] = useState([])
+    const [Post, setPost] = useState([])
+    const [savedPost, setSavedPost] = useState([])
+
+    useEffect(()=> {
+        console.log(currentUser?.savePosts)
+        setSavedPost(currentUser?.savePosts)
+    }, [currentUser])
     
     useEffect(() => {
         const reference = currentUser?.type === 'cty' ? 'uni-posts' : 'cty-posts' 
-        const ctyPostRef = collection(db, reference)
-        const getCtyPost = async () => {
-            const data = await getDocs(ctyPostRef)
-            setCtyPost(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
+        const PostRef = collection(db, reference)
+        const getPost = async () => {
+            const data = await getDocs(PostRef)
+            setPost(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
         }
 
-        getCtyPost()
+        getPost()
         
     }, [currentUser]);
-    dispatch(CtyPostSlice.actions.updatePosts(ctyPost))
+    dispatch(CtyPostSlice.actions.updatePosts(Post))
 
     return (
         <div className="job-list">
             <h1 className="job-list__result">
-                <span>{ctyPost?.length} </span>
+                <span>{Post?.length} </span>
                 kết quả tìm kiếm
             </h1>
 
             {
-                ctyPost?.map((job, index) => {
-                    return <Card {...job} key={index}/>
+                Post?.map((job, index) => {
+                    return <Card {...job} key={index} saved={savedPost?.includes(job.id) ? true : false}/>
                 })
             }
         </div>

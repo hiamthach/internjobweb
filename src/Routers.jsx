@@ -13,6 +13,8 @@ import AccountPage from './pages/AccountPage'
 import AccountSettingPage from './pages/AccountSettingPage';
 import PostPage from './pages/PostPage'
 import PostSettingPage from './pages/PostSettingPage';
+import CandidatesPage from './pages/CandidatesPage';
+import SavedPostPage from './pages/SavedPostPage'
 
 import { useAuth } from './contexts/AuthContext';
 
@@ -73,8 +75,18 @@ const Routers = () => {
             />
 
             <Route 
-                path='/post/setting'
+                path='/post/saved'
+                element={<SavedPostPage/>}
+            />
+
+            <Route 
+                path='/post/setting/:id'
                 element={<PostSettingPage/>}
+            />
+
+            <Route
+                path='/post/candidates/:id'
+                element={<CandidatesPage/>}
             />
             
         </Routes>
