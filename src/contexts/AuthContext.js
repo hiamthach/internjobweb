@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react"; 
 import { auth, db } from "../firebase-config";
 import { GoogleAuthProvider,createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, signInWithPopup, sendPasswordResetEmail } from 'firebase/auth'
-import { collection, doc, getDoc, getDocFromCache, getDocs } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { stringify } from "@firebase/util";
 
 
@@ -22,7 +22,6 @@ export default function AuthContextProvider({ children }) {
     useEffect(()=> {
         const unscribe = onAuthStateChanged(auth, user => {
             const userEmail = stringify(user.email)
-            console.log(userEmail)
             const userRef = collection(db, "users")
             getDocs(userRef)
                 .then((res) => {
@@ -32,9 +31,7 @@ export default function AuthContextProvider({ children }) {
                 })
  
         })
-        return () => {
-            unscribe()
-        }
+        console.log('re render')
     }, [])
 
     function signup(email, password) {

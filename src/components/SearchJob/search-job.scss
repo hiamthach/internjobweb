@@ -42,16 +42,11 @@
         }
         &__default {
             font-size: 15px;
-            min-width: 128px;
         }
         &__icon {
             font-size: 16px;
             color: $primary-color;
             margin: 0 16px;
-        }
-        &__down {
-            color: #000 !important;
-            margin-right: 24px;
         }
 
         &__select {
@@ -84,6 +79,36 @@
             }
             &:last-child {
                 border-bottom: none;
+            }
+        }
+    }
+}
+
+@media (max-width: 800px) {
+    .search {
+        &-input {
+            input {
+                width: 100px;
+            }
+        }
+
+        &-combobox {
+            min-width: 140px;
+            &__icon {
+                margin: 0 4px;
+            }
+            &__default {
+                width: fit-content;
+                min-width: none;
+            }
+            &__select {
+                width: fit-content;
+                min-width: none;
+            }
+
+            &__option {
+                min-width: none;
+                width: fit-content;
             }
         }
     }

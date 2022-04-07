@@ -23,9 +23,14 @@ body {
 .container {
     width: 1170px;
     margin: auto;
-    min-width: 100%;
-
 }
+
+@media (max-width: 1170px) {
+    .container {
+        width: 100%;
+    }
+}
+
 @include tablet {
     .container {
         width: 100%;
@@ -41,6 +46,7 @@ body {
 
 .main {
     display: flex;
+    flex-wrap: wrap;
     width: 100%;
     margin: 54px 0;
 }
@@ -56,6 +62,12 @@ body {
 
 .col-8 {
     width: 66.66667%;
+}
+
+@include mobile {
+    .col-4, .col-8 {
+        width: 100%;
+    }
 }
 
 .col-12 {

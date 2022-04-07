@@ -47,7 +47,7 @@ const JobList = (props) => {
 
             {
                 Post?.map((job, index) => {
-                    return <Card {...job} key={index} saved={savedPost?.includes(job) ? true : false}/>
+                    return <Card {...job} key={index} saved={savedPost?.includes(job.id) ? true : false}/>
                 })
             }
         </div>

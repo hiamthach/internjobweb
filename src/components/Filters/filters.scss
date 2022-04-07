@@ -31,3 +31,17 @@
         }
     }
 }
+
+@include mobile {
+    .filters {
+        flex-direction: row;
+        flex-wrap: wrap;
+        &-block {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+        }
+    }
+
+}

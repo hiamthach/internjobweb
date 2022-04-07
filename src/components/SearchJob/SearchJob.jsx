@@ -36,7 +36,7 @@ const SearchJob = () => {
                     <div className="search-combobox__option" onClick={handleOptionClick}>Đà Nẵng</div>
                 </div>
             </div>
-            <div class="search-btn ">
+            <div class="search-btn">
                 <Button>Tìm kiếm</Button>
             </div>
         </section>
