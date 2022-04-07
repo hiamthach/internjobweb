@@ -45,16 +45,14 @@ const Card = (props) => {
 
         const savedPosts = data.data().savePosts
 
-        if (!savedPosts.includes(props.id)) {
-            savedPosts.push(props.id)
-        }
-
         if (isSaved) {
-            savedPosts.splice(savedPosts.indexOf(props.id), 1)
+            savedPosts.splice(savedPosts.indexOf(props), 1)
             setIsSaved(!isSaved)
         } else {
-            savedPosts.push(props.id)
-            setIsSaved(!isSaved)
+            if (!savedPosts.includes(props)) {
+                savedPosts.push(props)
+                setIsSaved(!isSaved)
+            }
         }
 
         updateDoc(userRef, {...data.data(), savePosts : savedPosts})

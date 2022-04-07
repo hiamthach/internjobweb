@@ -1,7 +1,7 @@
 @use '../../styles/' as *;
 
 .header {
-    width: 1170px;
+    width: 1170px;    
     margin: auto;
     padding: 16px;
     display: flex;
@@ -114,5 +114,11 @@
                 color: $primary-color;
             }
         }
+    }
+}
+
+@media (max-width: 1024px) {
+    .header {
+        width: 100%;
     }
 }
