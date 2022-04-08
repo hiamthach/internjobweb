@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './header.scss'
 
 import {PlusSquare, List, XLg} from 'react-bootstrap-icons'
@@ -11,6 +11,8 @@ import { useAuth } from '../../contexts/AuthContext';
 
 const Header = (props) => {
 
+    const navigate = useNavigate()
+
     const { currentUser, signOut } = useAuth()
 
     const [openNav, setOpenNav] = useState(false)
@@ -18,6 +20,11 @@ const Header = (props) => {
     useEffect(() => {
         console.log(openNav)
     }, [openNav]);
+
+    const handleSignOUt = () => {
+        signOut()
+        navigate('/login')
+    }
 
     const setHeader = (currentUser) => {
 
@@ -36,7 +43,7 @@ const Header = (props) => {
                             <div className="header-nav__item-dropdown">
                                 <Link to='/account/setting' className="header-nav__item-dropdown__item">Cài đặt tài khoản</Link>
                                 <Link to='/post/saved' className="header-nav__item-dropdown__item">Danh sách đã lưu</Link>
-                                <Link to='/login' onClick={signOut} className="header-nav__item-dropdown__item">Đăng xuất</Link>
+                                <Link to='/login' onClick={handleSignOUt} className="header-nav__item-dropdown__item">Đăng xuất</Link>
                             </div>
                         </div>
                         <div className={`header-nav__item ${props.where === 'post' ? 'active' : ''}`}>
